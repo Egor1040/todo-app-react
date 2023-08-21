@@ -1,0 +1,39 @@
+.add-header {
+    width: 100%;
+    min-height: 30px;
+    display: flex;
+    border: 2px solid #615f61;
+}
+
+.app-header__enter {
+    padding: 10px;
+    width: 70%;
+    background-color: #333133;
+    color: whitesmoke;
+    outline: none;
+    border: none;
+    border-right: 2px solid #615f61;
+}
+
+.app-header__enter:focus {
+    border: none;
+    border-right: 2px solid #615f61;
+    outline: none;
+}
+
+.app-header__add {
+    cursor: pointer;
+    width: 30%;
+    background-color: #333133;
+    color: #32c9bc;
+    border: none;
+    outline: none;
+}
+
+.app-header__add:focus {
+    border: none;
+}
+
+.app-header__add:hover {
+    color: greenyellow;
+}
