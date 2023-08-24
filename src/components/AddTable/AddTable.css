@@ -2,6 +2,10 @@
     border: 2px solid #615f61;
 }
 
+.descr-items {
+    height: 38px;
+}
+
 .descr-item {
     background: #474645;
     color: whitesmoke;
@@ -20,15 +24,53 @@
     overflow: hidden;
 }
 
-.descr-item__remove {
-    width: 100%;
+.descr-item__icons {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 30px;
+}
+
+.descr-item__edit {
+    cursor: pointer;
+    width: 30px;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.descr-item__remove img {
+.descr-item__remove {
     cursor: pointer;
+    width: 30px;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.editor-menu {
+    display: none;
+    flex-direction: column;
+}
+
+.editor-menu__input {
+    text-align: center;
+    color: whitesmoke;
+    background-color: #474645;
+    outline: none;
+    border: 1px solid whitesmoke;
+}
+
+.editor-menu__button {
+    background-color: silver;
+    border: none;
+}
+
+.active {
+    display: flex;
+}
+
+.unactive {
+    display: none;
 }
