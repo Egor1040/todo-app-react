@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './AddTable.css';
 
-const Table = ({ data, editRow, onDelete }) => {
+const Table = ({ data, editRow, onDelete, changeAct }) => {
     const [inputText, setInputText] = useState('');
     const [visib, setVisib] = useState(false);
     const [editingItemId, setEditingItemId] = useState(null);
@@ -16,18 +16,29 @@ const Table = ({ data, editRow, onDelete }) => {
                         <td className='descr-item descr-item__id'>{item.id}</td>
                         <td className='descr-item descr-item__text'>{item.text}</td>
                         <td className='descr-item'>
-                            <div className={ !visib ? 'descr-item__icons active' : 'descr-item__icons unactive'}>
+                            <div className={ !item.bool ? 'descr-item__icons active' : 'descr-item__icons unactive'}>
+                                {console.log(item)}
                                 <img className='descr-item__edit' onClick={() => {
+                                    changeAct(item.id,item.bool,item.text)
                                     setVisib(!visib)
-                                    setEditingItemId(item.id)}} src={ item.edit } alt="" />
-                                <img className='descr-item__remove' onClick={() => onDelete(item.id)} src={item.delete} data-id={ item.id } alt=''/>
+                                    setEditingItemId(item.id)}} src={ item.edit } 
+                                    alt="" />
+                                <img className='descr-item__remove' 
+                                    value={inputText} 
+                                    onClick={() => onDelete(item.id)} 
+                                    src="img/icons8-close-30.png" data-id={ item.id } 
+                                    alt=''/>
                             </div>
-                            <div className={ `editor-menu ${visib && item.id === editingItemId ? 'active' : ''}`}>
-                                <input type="text"  onChange={(e) => setInputText(e.target.value)} className='editor-menu__input' />
+                            <div className={ `editor-menu ${visib && item.id === editingItemId ? 'active' : '' }`}>
+                                <input type="text" 
+                                    value={inputText}  
+                                    onChange={(e) => setInputText(e.target.value)} 
+                                    className='editor-menu__input' />
                                 <button onClick={() => {
-                                    editRow(item.id, inputText);
-                                    setInputText(''); 
+                                    changeAct(item.id,item.bool,item.text)
+                                    editRow(item.id, inputText); 
                                     setVisib(!visib);
+                                    setInputText('');
                                 }} className='editor-menu__button'>Edit</button>
                             </div>
                         </td>
