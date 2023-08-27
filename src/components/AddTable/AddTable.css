@@ -7,6 +7,7 @@
 }
 
 .descr-item {
+    max-width: 164.41px;
     background: #474645;
     color: whitesmoke;
     text-align: center;
@@ -50,27 +51,33 @@
 }
 
 .editor-menu {
-    display: none;
+    height: 38px;
+    display: flex;
     flex-direction: column;
 }
 
 .editor-menu__input {
+    height: 50%;
     text-align: center;
     color: whitesmoke;
     background-color: #474645;
     outline: none;
-    border: 1px solid whitesmoke;
 }
 
 .editor-menu__button {
+    cursor: pointer;
+    height: 50%;
     background-color: silver;
+    font-weight: bold;
     border: none;
 }
 
-.active {
-    display: flex;
+.editor-menu__button:hover {
+    background-color: #c0c0c0b0;
 }
 
-.unactive {
-    display: none;
+.empty {
+    height: 38px;
+    text-align: center;
+    color: #e1e1e1;
 }

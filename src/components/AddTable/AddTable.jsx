@@ -1,49 +1,73 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './AddTable.css';
+import RowIcons from './RowIcons';
+import EditorInput from './EditorInput';
 
-const Table = ({ data, editRow, onDelete, changeAct }) => {
-    const [inputText, setInputText] = useState('');
-    const [visib, setVisib] = useState(false);
-    const [editingItemId, setEditingItemId] = useState(null);
+const Table = ({ data, setData, deleteRow }) => {
+    const changeBool = (id,currentBool) => {
+        setData(data.map(row => {
+            if(id === row.id) {
+                return {
+                    ...row,
+                    bool: !currentBool
+                }
+            }
+            return row;
+        }));
+    }
 
-    console.log(visib)
+    const editRow = (id, text) => {
+        setData(data.map(data => {
+            if(id === data.id && text) {
+                return {
+                    ...data,
+                    text: text
+                }
+            }
+            return data;
+        }))
+    }
+
+
+    const [text, setText] = useState('');
+
 
     return (
         <table className='main-table'>
             <tbody className='table-desc'>
-                {data.map(item => (
-                    <tr className='descr-items' key={item.id}>
-                        <td className='descr-item descr-item__id'>{item.id}</td>
-                        <td className='descr-item descr-item__text'>{item.text}</td>
-                        <td className='descr-item'>
-                            <div className={ !item.bool ? 'descr-item__icons active' : 'descr-item__icons unactive'}>
-                                {console.log(item)}
-                                <img className='descr-item__edit' onClick={() => {
-                                    changeAct(item.id,item.bool,item.text)
-                                    setVisib(!visib)
-                                    setEditingItemId(item.id)}} src={ item.edit } 
-                                    alt="" />
-                                <img className='descr-item__remove' 
-                                    value={inputText} 
-                                    onClick={() => onDelete(item.id)} 
-                                    src="img/icons8-close-30.png" data-id={ item.id } 
-                                    alt=''/>
-                            </div>
-                            <div className={ `editor-menu ${visib && item.id === editingItemId ? 'active' : '' }`}>
-                                <input type="text" 
-                                    value={inputText}  
-                                    onChange={(e) => setInputText(e.target.value)} 
-                                    className='editor-menu__input' />
-                                <button onClick={() => {
-                                    changeAct(item.id,item.bool,item.text)
-                                    editRow(item.id, inputText); 
-                                    setVisib(!visib);
-                                    setInputText('');
-                                }} className='editor-menu__button'>Edit</button>
-                            </div>
-                        </td>
-                    </tr>
-                ))}
+                {
+                    data.length > 0 
+                        ?
+                        data.map(item => (
+                            <tr className='descr-items' key={item.id}>
+                                <td className='descr-item descr-item__id'>{item.id}</td>
+                                <td className='descr-item descr-item__text'>{item.text}</td>
+                                <td className='descr-item'>
+                                    {
+                                        !item.bool
+                                            ? 
+                                            <RowIcons 
+                                                item={item} 
+                                                changeBool={changeBool}
+                                                deleteRow={deleteRow}
+                                                />
+                                            :
+                                            <EditorInput
+                                                item={ item } 
+                                                setText={ setText } 
+                                                changeBool={ changeBool }
+                                                editRow={ editRow }
+                                                text={text}
+                                                />
+                                    }
+                                </td>
+                            </tr>
+                        ))
+                        :
+                        <tr>
+                            <td className='empty'>No task found...</td>
+                        </tr>
+                }
             </tbody>
         </table>
     );

@@ -18,30 +18,6 @@ function App() {
         }
     };
 
-    const changeAct = (id, bool,text) => {
-        const newData = data.map(item => {
-            if(item.id === id && item.bool === false) {
-                return {...data, id: id, text: text, bool: !bool};
-            } else if(item.id === id && item.bool === true) {
-                return {...data, id: id, text: text, bool: bool = true};
-            }
-            return item;
-        })
-        setData(newData);
-    }
-
-    const editRow = (id,value) => {
-        const newData = data.map(item => {
-            if(value) {
-                if(item.id === id) {
-                    return {...data, id: id, text: value};
-                }
-            }
-            return item;
-        })
-        setData(newData);
-    }
-
     const deleteRow = (id) => {
         const updatedData = data.filter(item => item.id !== id);
         setData(updatedData);
@@ -50,9 +26,10 @@ function App() {
     return (
         <div className="App">
             <h2 className='App-title'>REACT TODO APP</h2>
+
             <div className="todo-app">
-                <AddHeader onAdd={addRow} />
-                <AddTable data={data} editRow={editRow} onDelete={deleteRow} changeAct={changeAct}/>
+                <AddHeader addRow={addRow} />
+                <AddTable data={data} setData={ setData } deleteRow={ deleteRow }/>
             </div>
         </div>
     );

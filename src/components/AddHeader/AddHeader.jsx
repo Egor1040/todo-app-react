@@ -1,29 +1,25 @@
 import React, { useState } from 'react';
 import './AddHeader.css';
 
-const AddHeader = (props) => {
+const AddHeader = ({addRow}) => {
     const [inputValue, setInputValue] = useState('');
 
-    const handleInputChange = (event) => {
-        setInputValue(event.target.value);
-    };
-
-    const handleAddClick = () => {
-        props.onAdd(inputValue); 
-        setInputValue(''); 
-    };
-
     return (
-    <div className="add-header">
-        <input
-            className="app-header__enter"
-            value={inputValue}
-            onChange={handleInputChange}
-        />
-        <button className="app-header__add" onClick={handleAddClick}>
-            Add
-        </button>
-    </div>
+        <div className="add-header">
+            <input
+                className="app-header__enter"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                placeholder='Create a new todo'
+            />
+            <button className="app-header__add" 
+                onClick={() => {
+                    addRow(inputValue)
+                    setInputValue('');
+            }}>
+                Add
+            </button>
+        </div>
     );
 };
 
